@@ -195,4 +195,3 @@ TMatrix<ValType> TMatrix<ValType>::operator-(const TMatrix<ValType> &mt)
 // TVector О3 Л2 П4 С6
 // TMatrix О2 Л2 П3 С3
 #endif
-//hello there
