@@ -33,6 +33,7 @@ TEST(TVector, copied_vector_is_equal_to_source_one)
 {
  TVector<int> v(10);
  TVector<int> v1(v);
+
  EXPECT_EQ(v, v1);
 }
 
@@ -40,6 +41,7 @@ TEST(TVector, copied_vector_has_its_own_memory)
 {
   TVector<int> v(10);
   TVector<int> v1(v);
+
   EXPECT_EQ(sizeof (v), sizeof (v1));
 }
 
@@ -96,15 +98,17 @@ TEST(TVector, can_assign_vectors_of_equal_size)
 
 TEST(TVector, assign_operator_change_vector_size)
 {
-  TVector<int> v1(5);
-  TVector<int> v2(10);
+  TVector<int> v1(5);    
+  TVector<int> v2(7);
 
-  ASSERT_NO_THROW (v1=v2);
+  v1=v2;
+
+  EXPECT_EQ (v1.GetSize(), v2.GetSize());
 }
 
 TEST(TVector, can_assign_vectors_of_different_size)
 {
-  TVector<int> v1(5);
+  TVector<int> v1(5);    
   TVector<int> v2(6);
 
   ASSERT_NO_THROW (v1=v2);
@@ -136,18 +140,25 @@ TEST(TVector, vectors_with_different_size_are_not_equal)
 TEST(TVector, can_add_scalar_to_vector)
 {
   TVector<int> v1(5);
+  int a=5;
 
-  ASSERT_NO_THROW (v1+3);
+  ASSERT_NO_THROW (v1+a);
 }
 
 TEST(TVector, can_subtract_scalar_from_vector)
 {
-  ADD_FAILURE();
+  TVector<int> v1(5);
+  int a=5;
+
+  ASSERT_NO_THROW (v1-a);
 }
 
 TEST(TVector, can_multiply_scalar_by_vector)
 {
-   ADD_FAILURE();
+  TVector<int> v1(5);
+  int a=5;
+
+  ASSERT_NO_THROW (v1*a);
 }
 
 TEST(TVector, can_add_vectors_with_equal_size)
@@ -184,10 +195,16 @@ TEST(TVector, cant_subtract_vectors_with_not_equal_size)
 
 TEST(TVector, can_multiply_vectors_with_equal_size)
 {
-ADD_FAILURE();
+  TVector<int> v1(6);
+  TVector<int> v2(6);
+
+  ASSERT_NO_THROW (v1*v2);
 }
 
 TEST(TVector, cant_multiply_vectors_with_not_equal_size)
 {
-ADD_FAILURE();
+   TVector<int> v1(5);
+   TVector<int> v2(10);
+
+  ASSERT_ANY_THROW (v1*v2);
 }

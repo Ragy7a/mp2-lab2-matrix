@@ -147,7 +147,7 @@ TVector<ValType>& TVector<ValType>::operator=(const TVector &v)
 template <class ValType> // прибавить скаляр
 TVector<ValType> TVector<ValType>::operator+(const ValType &val)
 {
-	Tvector<ValType> temp(Size);
+	TVector<ValType> temp(Size);
 	for (int i=0; i<Size; i++)
 	{
 		temp[i]=pVector[i]+val;
@@ -158,7 +158,7 @@ TVector<ValType> TVector<ValType>::operator+(const ValType &val)
 template <class ValType> // вычесть скаляр
 TVector<ValType> TVector<ValType>::operator-(const ValType &val)
 {
-	Tvector<ValType> temp(Size);
+	TVector<ValType> temp(Size);
 	for (int i=0; i<Size; i++)
 	{
 		temp[i]=pVector[i]-val;
@@ -170,7 +170,7 @@ TVector<ValType> TVector<ValType>::operator-(const ValType &val)
 template <class ValType> // умножить на скаляр
 TVector<ValType> TVector<ValType>::operator*(const ValType &val)
 {
-	Tvector<ValType> temp(Size);
+	TVector<ValType> temp(Size);
 	for (int i=0; i<Size; i++)
 	{
 		temp[i]=pVector[i]*val;
@@ -211,10 +211,11 @@ ValType TVector<ValType>::operator*(const TVector<ValType> &v)
 {
 	if (Size!=v.Size)
 		throw "Exception";
-	TVector <ValType> temp(Size);
+	ValType temp;
+	temp=0;
 	for (int i=0; i<Size; i++)
 	{
-		temp[i]+=pVector[i]*v.pVector[i];
+		temp=temp+(pVector[i]*v.pVector[i]);
 	}
 	return temp;
 
@@ -282,7 +283,7 @@ bool TMatrix<ValType>::operator==(const TMatrix<ValType> &mt) const
 
 	for (int i=0; i<Size; i++)
 	{
-		if (pVector[i]!=mt.pVector[i]);
+		if (pVector[i]!=mt.pVector[i])
 		{
 			return false;
 		}
@@ -300,7 +301,7 @@ bool TMatrix<ValType>::operator!=(const TMatrix<ValType> &mt) const
 
 	for (int i=0; i<Size; i++)
 	{
-		if (pVector[i]!=mt.pVector[i]);
+		if (pVector[i]!=mt.pVector[i])
 		{
 			return true;
 		}
