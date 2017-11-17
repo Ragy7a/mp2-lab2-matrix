@@ -34,7 +34,7 @@ TEST(TVector, copied_vector_is_equal_to_source_one)
  TVector<int> v(10);
  TVector<int> v1(v);
 
- EXPECT_EQ(v, v1);
+ EXPECT_NE(&v, &v1);
 }
 
 TEST(TVector, copied_vector_has_its_own_memory)
