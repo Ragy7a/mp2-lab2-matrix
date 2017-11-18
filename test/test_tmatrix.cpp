@@ -34,10 +34,11 @@ TEST(TMatrix, copied_matrix_is_equal_to_source_one)
 
 TEST(TMatrix, copied_matrix_has_its_own_memory)
 {
-  TMatrix<int> m1(7);
+  TMatrix<int> m1(5);
   TMatrix<int> m2(m1);
+  m1[0][0]=3;
 
-  EXPECT_NE(&m1, &m2);
+  EXPECT_NE(m1, m2);
 }
 
 TEST(TMatrix, can_get_size)
@@ -66,7 +67,7 @@ TEST(TMatrix, throws_when_set_element_with_too_large_index)
 {
   TMatrix<int> m(5);
 
-  ASSERT_ANY_THROW(m[200000000][200000000]=3);
+  ASSERT_ANY_THROW(m[100000001][100000001]=3);
 }
 
 TEST(TMatrix, can_assign_matrix_to_itself)
@@ -107,14 +108,14 @@ TEST(TMatrix, compare_equal_matrices_return_true)
   TMatrix<int> m1(5);
   TMatrix<int> m2(m1);
 
-  ASSERT_NO_THROW(m1==m2);
+  EXPECT_TRUE(m1==m2);
 }
 
 TEST(TMatrix, compare_matrix_with_itself_return_true)
 {
   TMatrix<int> m1(5);
 
-  ASSERT_NO_THROW(m1==m1);
+   EXPECT_TRUE(m1==m1);
 }
 
 TEST(TMatrix, matrices_with_different_size_are_not_equal)
@@ -127,32 +128,102 @@ TEST(TMatrix, matrices_with_different_size_are_not_equal)
 
 TEST(TMatrix, can_add_matrices_with_equal_size)
 {
-  TMatrix<int> m1(5);
-  TMatrix<int> m2(5);
+  TMatrix<int> m1(3);
+  TMatrix<int> m2(3);
+  TMatrix<int> m3(3);
+  for(int i=0; i<3; i++)
+  {
+	  for(int j=i; j<3; j++)
+	  {
+		  m1[i][j]=1;
+	  }
+  }
+	  for(int i=0; i<3; i++)
+	  {
+		  for(int j=i; j<3; j++)
+		  {
+			  m2[i][j]=2;
+		  }
+	  }
+   m3[0][0]=3;
+   m3[0][1]=3;
+   m3[0][2]=3;
+   m3[1][1]=3;
+   m3[1][2]=3;
+   m3[2][2]=3;
 
-  ASSERT_NO_THROW(m1+m2);
+  EXPECT_EQ(m3, m1+m2);
 }
 
 TEST(TMatrix, cant_add_matrices_with_not_equal_size)
 {
-  TMatrix<int> m1(5);
-  TMatrix<int> m2(7);
+  TMatrix<int> m1(3);
+  TMatrix<int> m2(5);
+  for(int i=0; i<3; i++)
+  {
+	  for(int j=i; j<3; j++)
+	  {
+		  m1[i][j]=2;
+	  }
+  }
+	  for(int i=0; i<5; i++)
+	  {
+		  for(int j=i; j<5; j++)
+		  {
+			  m2[i][j]=1;
+		  }
+	  }
 
   ASSERT_ANY_THROW(m1+m2);
 }
 
 TEST(TMatrix, can_subtract_matrices_with_equal_size)
 {
-   TMatrix<int> m1(5);
-   TMatrix<int> m2(5);
+  TMatrix<int> m1(3);
+  TMatrix<int> m2(3);
+  TMatrix<int> m3(3);
+  for(int i=0; i<3; i++)
+  {
+	  for(int j=i; j<3; j++)
+	  {
+		  m1[i][j]=2;
+	  }
+  }
+	  for(int i=0; i<3; i++)
+	  {
+		  for(int j=i; j<3; j++)
+		  {
+			  m2[i][j]=1;
+		  }
+	  }
+   m3[0][0]=1;
+   m3[0][1]=1;
+   m3[0][2]=1;
+   m3[1][1]=1;
+   m3[1][2]=1;
+   m3[2][2]=1;
 
-  ASSERT_NO_THROW(m1-m2);
+  EXPECT_EQ(m3, m1-m2);
 }
 
 TEST(TMatrix, cant_subtract_matrixes_with_not_equal_size)
 {
-  TMatrix<int> m1(5);
-  TMatrix<int> m2(7);
+  TMatrix<int> m1(3);
+  TMatrix<int> m2(5);
+  for(int i=0; i<3; i++)
+  {
+	  for(int j=i; j<3; j++)
+	  {
+		  m1[i][j]=2;
+	  }
+  }
+	  for(int i=0; i<5; i++)
+	  {
+		  for(int j=i; j<5; j++)
+		  {
+			  m2[i][j]=1;
+		  }
+	  }
 
   ASSERT_ANY_THROW(m1-m2);
 }
